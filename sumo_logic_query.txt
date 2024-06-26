@@ -1,0 +1,7 @@
+_sourceCategory="sumologic_alerts.py"
+| parse "endpoint: '/api/data' responseTime: * ms" as responseTime
+| where responseTime > 3000
+| count by _timeslice=1m
+| if (_count > 5, "ALERT", "OK")
+
+
